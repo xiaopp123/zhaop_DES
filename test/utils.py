@@ -96,6 +96,7 @@ def s_change(key):
 
     return s_list
 
+
 # p change
 def p_change(text):
     p_list = ""
@@ -104,7 +105,49 @@ def p_change(text):
 
     return p_list
 
+
 # ni change
 def ni_change(text):
+    lens = len(text) / 4
+    ni_list = ""
+    for i in range(lens):
+        num = ""
+        for j in range(4):
+            num += text[ip_1[4 * i + j] - 1]
+        ni_list += "%x" % int(num, 2)
+
+    return ni_list
 
 
+# get key
+def get_key(key):
+
+    # from hex to binary
+    key = from_hex_to_binary(key)
+    key_len = len(key)
+    group_num = 0
+
+    if (key_len % 64) != 0:
+        group_num = key_len / 64 + 1
+    else:
+        group_num = key_len / 64
+
+    a = [''] * 16
+    b = [''] * group_num
+
+    for i in range(group_num):
+        b[i] = a[:]
+
+    for i in range(0, key_len, 64):
+        run_key = key[i:i + 64]
+        run_key = key_first_change(run_key)
+        for j in range(16):
+            key_left = run_key[0:28]
+            key_right = run_key[28:56]
+            key_left = key_left[d[j]:28] + key_right[0:d[j]]
+            key_right = key_left[d[j]:28] + key_right[0:d[j]]
+            run_key = key_left + key_right
+            key_y = key_second_change(run_key)
+            b[i][j] = key_y[:]
+
+    return b

@@ -19,6 +19,8 @@ def code(text, key):
     # 如果秘钥长度不是16的整数倍则以增加0的方式变为16的整数倍
     # hex_text_len = len(hex_text)
     # hex_key_len = len(hex_key)
+    # print("binary_text", binary_text)
+    # print("binary_key", binary_key)
 
     turn_len = len(binary_text)
     binary_key_len = len(binary_key)
@@ -37,7 +39,7 @@ def code(text, key):
         # print(run_key)
 
         # 16次迭代
-        for j in range(1):
+        for j in range(16):
 
             # 取出明文左右32位
             text_right = run_text[32:64]
@@ -89,18 +91,18 @@ def code(text, key):
 
 
 # main
-def des_encode(from_code, key):
-
-    key_len = len(key)
-    string_len = len(from_code)
-
-    if string_len < 1 or key_len < 1:
-        print("error input")
-        return False
-
-    key_code = code(from_code, key)
-
-    return key_code
+#def des_encode(from_code, key):
+#
+#    key_len = len(key)
+#    string_len = len(from_code)
+#
+#    if string_len < 1 or key_len < 1:
+#        print("error input")
+#        return False
+#
+#    key_code = code(from_code, key)
+#
+#    return key_code
 
 
 if __name__ == "__main__":
@@ -110,4 +112,4 @@ if __name__ == "__main__":
 
     # print(des_encode(text, key))
     u_str = '2014number中英文数字文转'
-    code(u_str, u'1111')
+    print(code(u_str, u'1111'))
