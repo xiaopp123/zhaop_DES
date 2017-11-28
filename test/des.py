@@ -107,9 +107,9 @@ def code(text, key):
 
 if __name__ == "__main__":
     print("des加密")
-    # text = raw_input("请输入明文：")
-    # key = raw_input("请输入秘钥：")
+    text = raw_input("请输入明文：")
+    key = raw_input("请输入秘钥：")
 
     # print(des_encode(text, key))
     u_str = '2014number中英文数字文转'
-    print(code(u_str, u'1111'))
+    print(code(text, key))

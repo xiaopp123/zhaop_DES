@@ -144,10 +144,19 @@ def get_key(key):
         for j in range(16):
             key_left = run_key[0:28]
             key_right = run_key[28:56]
-            key_left = key_left[d[j]:28] + key_right[0:d[j]]
-            key_right = key_left[d[j]:28] + key_right[0:d[j]]
+            key_left = key_left[d[j]:28] + key_left[0:d[j]]
+            key_right = key_right[d[j]:28] + key_right[0:d[j]]
             run_key = key_left + key_right
             key_y = key_second_change(run_key)
             b[i][j] = key_y[:]
 
     return b
+
+
+def from_hex_to_unicode(text):
+    out_put = ""
+    text_len = len(text)
+    for i in range(0, text_len, 2):
+        out_put += chr(int(text[i:i + 2], 16))
+
+    return out_put
