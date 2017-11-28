@@ -25,7 +25,7 @@ def from_hex_to_binary(num):
     return out_put
 
 
-# from a bit of hexadecimal to binary
+# from a num to binary
 def from_num_to_binary(key, lens):
     out_put = ""
     for i in range(lens):
@@ -49,3 +49,62 @@ def key_first_change(key):
         changed_key += key[pc1[i] - 1]
 
     return changed_key
+
+
+# second time to change key, from 56 to 48
+def key_second_change(key):
+    changed_key = ""
+    for i in range(48):
+        changed_key += key[pc2[i] - 1]
+
+    return changed_key
+
+
+# extend the right of the text from 32 to 48
+def extend_exchange(text):
+    extend_list = ""
+    for i in range(48):
+        extend_list += text[e[i] - 1]
+
+    return extend_list
+
+
+# operation of xor
+def text_xor(text, key):
+    text_len = len(text)
+    out_put = ""
+    for i in range(text_len):
+        if text[i] == key[i]:
+            out_put += '0'
+        else:
+            out_put += '1'
+
+    return out_put
+
+
+# s box change
+def s_change(key):
+    s_list = ""
+    for i in range(8):
+        row = int(str(key[i * 6]) + str(key[i * 6 + 5]), 2)
+        col = ""
+        for j in range(1, 5):
+            col += str(key[i * 6 + j])
+        col = int(col, 2)
+        # make int to binary of 4 lengh
+        s_list += from_num_to_binary(s[i][row][col], 4)
+
+    return s_list
+
+# p change
+def p_change(text):
+    p_list = ""
+    for i in range(32):
+        p_list += text[p[i] - 1]
+
+    return p_list
+
+# ni change
+def ni_change(text):
+
+
