@@ -7,6 +7,8 @@ def decode(text, key):
 
     output = ""
 
+    text = text.encode("utf-8")
+
     # 将密文转换成二进制
     text_binary = from_hex_to_binary(text)
 
@@ -64,6 +66,7 @@ def decode(text, key):
         # 将二进制转换成16进制，逆初始化
         output += ni_change(run_text)
 
+    output = from_hex_to_unicode(output)
     return output
 
 
@@ -71,5 +74,5 @@ if __name__ == "__main__":
     text = raw_input("输入密文：")
     key = raw_input("请输入密码：")
     output = decode(text, key)
-    output = from_hex_to_unicode(output)
+    #output = from_hex_to_unicode(output)
     print(output)

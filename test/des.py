@@ -9,6 +9,9 @@ def code(text, key):
     # 将密文和秘钥转换成二进制
     """先将文本转换成十六进制，然后将十六进制串转换成二进制"""
 
+    # text = text.encode('unicode-escape').decode('string_escape')
+    text = text.encode("utf-8")
+
     hex_text = from_unicode_to_hex(text)
     # print(hex_text)
     binary_text = from_hex_to_binary(hex_text)
@@ -107,9 +110,10 @@ def code(text, key):
 
 if __name__ == "__main__":
     print("des加密")
-    text = raw_input("请输入明文：")
-    key = raw_input("请输入秘钥：")
+    #text = raw_input("请输入明文：")
+    #key = raw_input("请输入秘钥：")
 
     # print(des_encode(text, key))
-    u_str = '2014number中英文数字文转'
+    text = u'2014number中英文数字文转'
+    key = '123456'
     print(code(text, key))
