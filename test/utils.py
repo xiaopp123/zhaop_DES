@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 from des_struct import *
 
 
@@ -160,3 +161,11 @@ def from_hex_to_unicode(text):
         out_put += chr(int(text[i:i + 2], 16))
 
     return out_put
+
+
+def check_key(key):
+    re_str = "^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.,<>?/;:_\-@&=])[a-z0-9.,<>?/;:_\-@&=]+$"
+    if re.match(re_str, key):
+        return True
+
+    return False
