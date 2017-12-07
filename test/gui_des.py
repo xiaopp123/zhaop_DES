@@ -105,33 +105,52 @@ class DesDesk():
         window.mainloop()
 
     def ask_open_file(self):
-        file_path = tkFileDialog.askopenfilename()
-        with open(file_path, "r") as file:
-            contents = file.read()
-            # print(contents)
-            contents = eval(contents)
+        try:
+            file_path = tkFileDialog.askopenfilename()
+            with open(file_path, "r") as file:
+                contents = file.read()
+                # print(contents)
+                contents = eval(contents)
 
-            self.input_text.insert(END, contents['text'])
-            self.key.set(contents['key'])
-            self.out_text.insert(END, contents['encode'])
+                text_not_null = False
 
-        showinfo("提示", "导入成功！")
+                if contents.has_key('text'):
+                    self.input_text.insert(END, contents['text'])
+                    text_not_null = True
+
+                if contents.has_key("key"):
+                    self.key.set(contents['key'])
+                    text_not_null = True
+
+                if contents.has_key("encode"):
+                    self.out_text.insert(END, contents['encode'])
+                    text_not_null = True
+
+            if text_not_null:
+                showinfo("提示", "导入成功！")
+            else:
+                showinfo("提示", "文件为空！")
+        except Exception as e:
+            return
 
 
     # 将明文、密码和密文以字典方式保存
     def ask_save_file(self):
-        file_path = tkFileDialog.asksaveasfilename()
-        contents = dict(
-            text=self.input_text.get("1.0", END).strip(),
-            key=self.key.get().strip(),
-            encode=self.out_text.get("1.0", END).strip(),
-        )
-        contents = str(contents)
-        print(contents)
-        with open(file_path, "w") as file:
-            file.write(contents)
+        try:
+            file_path = tkFileDialog.asksaveasfilename()
+            contents = dict(
+                text=self.input_text.get("1.0", END).strip(),
+                key=self.key.get().strip(),
+                encode=self.out_text.get("1.0", END).strip(),
+            )
+            contents = str(contents)
+            print(contents)
+            with open(file_path, "w") as file:
+                file.write(contents)
 
-        showinfo("提示", "导出成功！")
+            showinfo("提示", "导出成功！")
+        except Exception as e:
+            return
 
     def encode_text(self):
         text = self.input_text.get("1.0", END).strip()
